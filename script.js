@@ -10,7 +10,11 @@
     const elements = {
         anchors: null,
         fadeElements: null,
-        form: null
+        form: null,
+        menuToggle: null,
+        mobileMenu: null,
+        mobileMenuOverlay: null,
+        mobileNavLinks: null
     };
 
     /**
@@ -26,9 +30,20 @@
                 const target = document.querySelector(targetId);
                 
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    // Fecha menu mobile se estiver aberto
+                    if (elements.mobileMenu && elements.mobileMenu.classList.contains('active')) {
+                        closeMobileMenu();
+                    }
+                    
+                    // Calcula offset baseado na altura do nav
+                    const nav = document.querySelector('nav');
+                    const navHeight = nav ? nav.offsetHeight : 120;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = targetPosition - navHeight;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -185,9 +200,118 @@
     function initFormHandling() {
         elements.form = document.querySelector('form');
         
+        // Formulário removido - função mantida para compatibilidade
         if (elements.form) {
             elements.form.addEventListener('submit', handleFormSubmit);
         }
+    }
+
+    /**
+     * Inicializa menu hambúrguer mobile
+     */
+    function initMobileMenu() {
+        elements.menuToggle = document.querySelector('.menu-toggle');
+        elements.mobileMenu = document.querySelector('.mobile-menu');
+        elements.mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        // Cria overlay se não existir
+        if (!document.querySelector('.mobile-menu-overlay')) {
+            const overlay = document.createElement('div');
+            overlay.className = 'mobile-menu-overlay';
+            document.body.appendChild(overlay);
+            elements.mobileMenuOverlay = overlay;
+        } else {
+            elements.mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        }
+
+        if (elements.menuToggle && elements.mobileMenu) {
+            // Toggle menu ao clicar no botão hambúrguer
+            elements.menuToggle.addEventListener('click', function() {
+                const isActive = elements.mobileMenu.classList.contains('active');
+                
+                if (isActive) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+
+            // Fecha menu ao clicar no overlay
+            if (elements.mobileMenuOverlay) {
+                elements.mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+            }
+
+            // Fecha menu ao clicar em um link
+            elements.mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    closeMobileMenu();
+                });
+            });
+
+            // Fecha menu ao pressionar ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && elements.mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+        }
+    }
+
+    /**
+     * Abre o menu mobile
+     */
+    function openMobileMenu() {
+        if (elements.mobileMenu && elements.menuToggle && elements.mobileMenuOverlay) {
+            elements.mobileMenu.classList.add('active');
+            elements.menuToggle.classList.add('active');
+            elements.mobileMenuOverlay.classList.add('active');
+            elements.menuToggle.setAttribute('aria-expanded', 'true');
+            elements.mobileMenu.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden'; // Previne scroll do body
+        }
+    }
+
+    /**
+     * Fecha o menu mobile
+     */
+    function closeMobileMenu() {
+        if (elements.mobileMenu && elements.menuToggle && elements.mobileMenuOverlay) {
+            elements.mobileMenu.classList.remove('active');
+            elements.menuToggle.classList.remove('active');
+            elements.mobileMenuOverlay.classList.remove('active');
+            elements.menuToggle.setAttribute('aria-expanded', 'false');
+            elements.mobileMenu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = ''; // Restaura scroll do body
+        }
+    }
+
+    /**
+     * Inicializa cards clicáveis com efeito de botão
+     */
+    function initClickableCards() {
+        const clickableCards = document.querySelectorAll('.contato-item-clickable');
+        
+        clickableCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                
+                // Primeiro: adiciona classe active para descer
+                this.classList.add('active');
+                
+                // Segundo: remove a classe após um tempo para subir
+                setTimeout(() => {
+                    this.classList.remove('active');
+                    
+                    // Terceiro: abre o link após o movimento de subir
+                    setTimeout(() => {
+                        if (href && href !== '#') {
+                            window.open(href, '_blank', 'noopener,noreferrer');
+                        }
+                    }, 200); // Aguarda 200ms após subir para abrir
+                }, 250); // 250ms para descer e subir
+            });
+        });
     }
 
     /**
@@ -204,6 +328,8 @@
             initSmoothScroll();
             initScrollAnimations();
             initFormHandling();
+            initMobileMenu();
+            initClickableCards();
         } catch (error) {
             console.error('Erro ao inicializar scripts:', error);
         }

@@ -28,6 +28,26 @@
     box-sizing: border-box;
 }
 
+/* Remove destaque azul ao clicar em elementos interativos */
+a, button, .menu-toggle, .cta-button, .whatsapp-button, .logo, .footer-logo,
+.footer-logo picture, .galeria-item, .contato-item-clickable, .nav-links a,
+.mobile-nav-links a, .social-links a, .footer-section a {
+    -webkit-tap-highlight-color: transparent !important;
+    tap-highlight-color: transparent;
+}
+
+a:focus, a:active, button:focus, button:active, .menu-toggle:focus,
+.menu-toggle:active, .cta-button:focus, .cta-button:active,
+.whatsapp-button:focus, .whatsapp-button:active, .logo:focus, .logo:active,
+.footer-logo:focus, .footer-logo:active, .galeria-item:focus, .galeria-item:active,
+.contato-item-clickable:focus, .contato-item-clickable:active,
+.nav-links a:focus, .nav-links a:active, .mobile-nav-links a:focus,
+.mobile-nav-links a:active, .social-links a:focus, .social-links a:active,
+.footer-section a:focus, .footer-section a:active {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     color: var(--text);
@@ -136,6 +156,108 @@ nav {
 }
 
 /* ============================================
+   MENU HAMBÚRGUER
+   ============================================ */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    gap: 5px;
+    z-index: 1001;
+    transition: var(--transition-base);
+}
+
+.menu-toggle span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 3px;
+    transition: var(--transition-base);
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background: rgba(254, 246, 251, 0.98);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+    padding-top: 120px;
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+.mobile-nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-nav-links li {
+    border-bottom: 1px solid rgba(217, 70, 166, 0.1);
+}
+
+.mobile-nav-links a {
+    display: block;
+    padding: 1.5rem 2rem;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: var(--transition-base);
+}
+
+.mobile-nav-links a:hover {
+    background: rgba(217, 70, 166, 0.1);
+    color: var(--primary);
+    padding-left: 2.5rem;
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
    HERO SECTION
    ============================================ */
 .hero {
@@ -148,6 +270,7 @@ nav {
     text-align: center;
     position: relative;
     overflow: hidden;
+    scroll-margin-top: 120px;
 }
 
 .hero::before {
@@ -256,6 +379,7 @@ nav {
     grid-template-columns: 1fr 1fr;
     gap: 5rem;
     align-items: center;
+    scroll-margin-top: 120px;
 }
 
 .sobre-content h2 {
@@ -302,6 +426,7 @@ nav {
 .servicos {
     padding: 8rem 5%;
     background: var(--gradient-servicos);
+    scroll-margin-top: 120px;
 }
 
 .servicos h2 {
@@ -371,6 +496,7 @@ nav {
 .galeria {
     padding: 8rem 5%;
     background: var(--dark);
+    scroll-margin-top: 120px;
 }
 
 .galeria h2 {
@@ -432,9 +558,12 @@ nav {
 .contato {
     padding: 8rem 5%;
     background: var(--light);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
+    scroll-margin-top: 120px;
+}
+
+.contato-info {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .contato-info h2 {
@@ -452,12 +581,42 @@ nav {
     background: white;
     border-radius: 15px;
     box-shadow: var(--shadow-sm);
-    transition: var(--transition-base);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
-.contato-item:hover {
-    transform: translateX(10px);
+.contato-item-clickable {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none;
+    user-select: none;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.contato-item-clickable:focus,
+.contato-item-clickable:focus-visible {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.contato-item:hover,
+.contato-item-clickable:hover,
+a.contato-item.contato-item-clickable:hover {
     box-shadow: 0 10px 30px rgba(217, 70, 166, 0.15);
+}
+
+.contato-item:active,
+.contato-item-clickable:active {
+    transform: scale(0.98) translateY(3px) !important;
+    box-shadow: 0 5px 15px rgba(217, 70, 166, 0.2);
+}
+
+.contato-item.active,
+.contato-item-clickable.active {
+    transform: scale(0.98) translateY(3px) !important;
+    box-shadow: 0 5px 15px rgba(217, 70, 166, 0.2);
 }
 
 .contato-icon {
@@ -465,14 +624,15 @@ nav {
     color: var(--primary);
 }
 
-.contato-item a {
+.contato-item-clickable strong {
     color: var(--text);
-    text-decoration: none;
-    transition: color 0.3s ease;
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
-.contato-item a:hover {
-    color: var(--primary);
+.contato-item-clickable span {
+    color: var(--text);
+    display: inline-block;
 }
 
 .form-contato {
@@ -546,6 +706,7 @@ nav {
     padding: 6rem 5%;
     background: var(--gradient-horario);
     text-align: center;
+    scroll-margin-top: 120px;
 }
 
 .horario h2 {
@@ -601,15 +762,23 @@ footer {
 .footer-logo {
     display: inline-block;
     margin-bottom: 1rem;
+    text-decoration: none;
+    line-height: 0;
+}
+
+.footer-logo picture {
+    display: block;
+    line-height: 0;
 }
 
 .footer-logo img {
     height: 100px;
     width: auto;
     max-width: 350px;
-    filter: brightness(0) invert(1);
-    opacity: 0.9;
+    display: block;
+    opacity: 1;
     transition: var(--transition-base);
+    object-fit: contain;
 }
 
 .footer-logo:hover img {
@@ -696,6 +865,10 @@ footer {
         display: none;
     }
 
+    .menu-toggle {
+        display: flex;
+    }
+
     .hero {
         height: 70vh;
         margin-top: 120px;
@@ -709,10 +882,13 @@ footer {
         font-size: 1rem;
     }
 
-    .sobre,
-    .contato {
+    .sobre {
         grid-template-columns: 1fr;
         gap: 3rem;
+        padding: 4rem 5%;
+    }
+
+    .contato {
         padding: 4rem 5%;
     }
 
@@ -766,6 +942,14 @@ footer {
     .logo img {
         height: 80px;
         max-width: 280px;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .mobile-menu {
+        padding-top: 100px;
     }
 
     .hero {
@@ -840,5 +1024,91 @@ footer {
     .stats {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+    }
+
+    .whatsapp-button {
+        width: 60px;
+        height: 60px;
+    }
+
+    .whatsapp-button span {
+        display: none;
+    }
+}
+
+/* ============================================
+   WHATSAPP FLOATING BUTTON
+   ============================================ */
+.whatsapp-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #25D366;
+    color: white;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    z-index: 999;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+.whatsapp-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+    background: #20BA5A;
+}
+
+.whatsapp-button svg {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+.whatsapp-button span {
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* Animação de pulso */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 30px rgba(37, 211, 102, 0.8);
+    }
+    100% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    }
+}
+
+.whatsapp-button {
+    animation: pulse 2s infinite;
+}
+
+@media (min-width: 768px) {
+    .whatsapp-button {
+        width: auto;
+        height: auto;
+        padding: 15px 20px;
+        border-radius: 50px;
+        flex-direction: row;
+    }
+
+    .whatsapp-button span {
+        display: inline-block;
+    }
+
+    .whatsapp-button svg {
+        width: 24px;
+        height: 24px;
     }
 }
