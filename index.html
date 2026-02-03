@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dôce Mantra Spa - Massoterapia e Terapias Holísticas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d946a6;
+            --secondary: #b830a1;
+            --accent: #e879c5;
+            --dark: #1a0b15;
+            --light: #fef6fb;
+            --text: #2d1b27;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(254, 246, 251, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(217, 70, 166, 0.1);
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--primary);
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            height: 90vh;
+            background: linear-gradient(135deg, #fef6fb 0%, #f7e6f3 50%, #f0d6eb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(217, 70, 166, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(184, 48, 161, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 25s infinite ease-in-out reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: var(--text);
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(217, 70, 166, 0.3);
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(217, 70, 166, 0.4);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Sobre Section */
+        .sobre {
+            padding: 8rem 5%;
+            background: var(--light);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .sobre-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .sobre-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .sobre-image {
+            position: relative;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(217, 70, 166, 0.2);
+        }
+
+        .sobre-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(217, 70, 166, 0.3) 0%, transparent 100%);
+            z-index: 1;
+        }
+
+        .sobre-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Serviços Section */
+        .servicos {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, #fef6fb 0%, #f7e6f3 100%);
+        }
+
+        .servicos h2 {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--primary);
+        }
+
+        .servicos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .servico-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .servico-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .servico-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(217, 70, 166, 0.2);
+        }
+
+        .servico-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .servico-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .servico-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .servico-card p {
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        /* Galeria Section */
+        .galeria {
+            padding: 8rem 5%;
+            background: var(--dark);
+        }
+
+        .galeria h2 {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--accent);
+        }
+
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .galeria-item {
+            position: relative;
+            height: 350px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .galeria-item:hover {
+            transform: scale(1.05);
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .galeria-item:hover img {
+            filter: brightness(0.8);
+        }
+
+        .galeria-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .galeria-item:hover .galeria-overlay {
+            transform: translateY(0);
+        }
+
+        /* Contato Section */
+        .contato {
+            padding: 8rem 5%;
+            background: var(--light);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .contato-info h2 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .contato-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .contato-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(217, 70, 166, 0.15);
+        }
+
+        .contato-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .contato-item a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contato-item a:hover {
+            color: var(--primary);
+        }
+
+        .form-contato {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(217, 70, 166, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #f0d6eb;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(217, 70, 166, 0.4);
+        }
+
+        /* Horário Section */
+        .horario {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, #f7e6f3 0%, #fef6fb 100%);
+            text-align: center;
+        }
+
+        .horario h2 {
+            font-size: 3.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+
+        .horario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .horario-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .horario-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .sobre,
+            .contato {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .servicos h2,
+            .galeria h2,
+            .contato-info h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">DÔCE MANTRA</div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>DÔCE MANTRA</h1>
+            <p>Massoterapia • Ventosaterapia • Liberação Miofascial • Terapia Holística</p>
+            <a href="#contato" class="cta-button">Agende sua Sessão</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stat-item">
+            <h3>+100k</h3>
+            <p>Atendimentos Realizados</p>
+        </div>
+        <div class="stat-item">
+            <h3>5.471</h3>
+            <p>Seguidores no Instagram</p>
+        </div>
+        <div class="stat-item">
+            <h3>100%</h3>
+            <p>Dedicação ao Bem-Estar</p>
+        </div>
+    </section>
+
+    <!-- Sobre Section -->
+    <section id="sobre" class="sobre fade-in">
+        <div class="sobre-content">
+            <h2>Sobre o Dôce Mantra</h2>
+            <p>O Dôce Mantra é um espaço dedicado ao cuidado integral do corpo e da mente. Nossa missão é proporcionar experiências transformadoras através de terapias holísticas que promovem o equilíbrio, a saúde e o bem-estar.</p>
+            <p>Com mais de 100 mil atendimentos realizados, nos consolidamos como referência em massoterapia e terapias complementares. Nossa abordagem combina técnicas tradicionais com conhecimento científico, sempre respeitando a individualidade de cada cliente.</p>
+            <p>Acreditamos que o cuidado com o corpo é uma forma de amor próprio e que cada sessão é uma oportunidade de reconexão consigo mesmo.</p>
+        </div>
+        <div class="sobre-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23d946a6;stop-opacity:0.3' /%3E%3Cstop offset='100%25' style='stop-color:%23b830a1;stop-opacity:0.5' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='600' fill='url(%23grad1)'/%3E%3Ctext x='400' y='300' font-family='Cormorant Garamond' font-size='80' fill='white' text-anchor='middle' opacity='0.3'%3EDÔCE%3C/text%3E%3Ctext x='400' y='380' font-family='Cormorant Garamond' font-size='80' fill='white' text-anchor='middle' opacity='0.3'%3EMANTRA%3C/text%3E%3C/svg%3E" alt="Dôce Mantra Spa">
+        </div>
+    </section>
+
+    <!-- Serviços Section -->
+    <section id="servicos" class="servicos">
+        <h2>Nossos Serviços</h2>
+        <div class="servicos-grid">
+            <div class="servico-card fade-in">
+                <div class="servico-icon">💆</div>
+                <h3>Massoterapia</h3>
+                <p>Técnicas de massagem terapêutica para alívio de tensões, dores musculares e promoção do relaxamento profundo. Inclui massagem relaxante, desportiva e terapêutica.</p>
+            </div>
+            <div class="servico-card fade-in">
+                <div class="servico-icon">🔥</div>
+                <h3>Ventosaterapia</h3>
+                <p>Terapia milenar chinesa que utiliza ventosas para melhorar a circulação sanguínea, aliviar dores e eliminar toxinas do organismo.</p>
+            </div>
+            <div class="servico-card fade-in">
+                <div class="servico-icon">🌿</div>
+                <h3>Liberação Miofascial</h3>
+                <p>Técnica especializada para tratamento de pontos de tensão e dor crônica, promovendo alívio imediato e duradouro através da liberação da fáscia muscular.</p>
+            </div>
+            <div class="servico-card fade-in">
+                <div class="servico-icon">🧘</div>
+                <h3>Terapia Holística</h3>
+                <p>Abordagem integrativa que trata o ser humano em sua totalidade, equilibrando corpo, mente e espírito através de diversas técnicas terapêuticas.</p>
+            </div>
+            <div class="servico-card fade-in">
+                <div class="servico-icon">✨</div>
+                <h3>Drenagem Linfática</h3>
+                <p>Massagem suave que estimula o sistema linfático, reduzindo inchaço, eliminando toxinas e promovendo renovação celular.</p>
+            </div>
+            <div class="servico-card fade-in">
+                <div class="servico-icon">🌸</div>
+                <h3>Reflexologia</h3>
+                <p>Técnica que trabalha pontos reflexos nos pés para equilibrar todo o organismo, promovendo bem-estar físico e emocional.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria Section -->
+    <section id="galeria" class="galeria">
+        <h2>Nossa Galeria</h2>
+        <div class="galeria-grid">
+            <div class="galeria-item fade-in">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23e879c5' /%3E%3Cstop offset='100%25' style='stop-color:%23d946a6' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23g1)'/%3E%3Ccircle cx='200' cy='200' r='80' fill='white' opacity='0.2'/%3E%3C/svg%3E" alt="Ambiente Spa">
+                <div class="galeria-overlay">
+                    <h3>Ambiente Acolhedor</h3>
+                </div>
+            </div>
+            <div class="galeria-item fade-in">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23d946a6' /%3E%3Cstop offset='100%25' style='stop-color:%23b830a1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23g2)'/%3E%3Ccircle cx='200' cy='200' r='60' fill='white' opacity='0.2'/%3E%3Ccircle cx='250' cy='150' r='40' fill='white' opacity='0.15'/%3E%3C/svg%3E" alt="Massagem">
+                <div class="galeria-overlay">
+                    <h3>Técnicas Especializadas</h3>
+                </div>
+            </div>
+            <div class="galeria-item fade-in">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f0d6eb' /%3E%3Cstop offset='100%25' style='stop-color:%23e879c5' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23g3)'/%3E%3Ccircle cx='150' cy='250' r='70' fill='white' opacity='0.2'/%3E%3C/svg%3E" alt="Terapias">
+                <div class="galeria-overlay">
+                    <h3>Cuidado Integral</h3>
+                </div>
+            </div>
+            <div class="galeria-item fade-in">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='g4' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23b830a1' /%3E%3Cstop offset='100%25' style='stop-color:%23d946a6' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23g4)'/%3E%3Ccircle cx='300' cy='300' r='90' fill='white' opacity='0.2'/%3E%3C/svg%3E" alt="Relaxamento">
+                <div class="galeria-overlay">
+                    <h3>Momentos de Paz</h3>
+                </div>
+            </div>
+            <div class="galeria-item fade-in">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='g5' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23e879c5' /%3E%3Cstop offset='100%25' style='stop-color:%23f0d6eb' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23g5)'/%3E%3Ccircle cx='200' cy='150' r='50' fill='white' opacity='0.2'/%3E%3Ccircle cx='250' cy='250' r='60' fill='white' opacity='0.15'/%3E%3C/svg%3E" alt="Bem-estar">
+                <div class="galeria-overlay">
+                    <h3>Bem-Estar Total</h3>
+                </div>
+            </div>
+            <div class="galeria-item fade-in">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='g6' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23d946a6' /%3E%3Cstop offset='100%25' style='stop-color:%23e879c5' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23g6)'/%3E%3Ccircle cx='100' cy='100' r='40' fill='white' opacity='0.2'/%3E%3Ccircle cx='300' cy='200' r='70' fill='white' opacity='0.15'/%3E%3C/svg%3E" alt="Espaço">
+                <div class="galeria-overlay">
+                    <h3>Espaço Harmonioso</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horário Section -->
+    <section class="horario fade-in">
+        <h2>Horário de Funcionamento</h2>
+        <div class="horario-grid">
+            <div class="horario-item">
+                <h3>Segunda a Sexta</h3>
+                <p>9h às 20h</p>
+            </div>
+            <div class="horario-item">
+                <h3>Sábado</h3>
+                <p>9h às 18h</p>
+            </div>
+            <div class="horario-item">
+                <h3>Domingo</h3>
+                <p>Fechado</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato Section -->
+    <section id="contato" class="contato fade-in">
+        <div class="contato-info">
+            <h2>Entre em Contato</h2>
+            <div class="contato-item">
+                <div class="contato-icon">📱</div>
+                <div>
+                    <strong>WhatsApp</strong><br>
+                    <a href="https://wa.me/5511999999999" target="_blank">(11) 99999-9999</a>
+                </div>
+            </div>
+            <div class="contato-item">
+                <div class="contato-icon">📧</div>
+                <div>
+                    <strong>E-mail</strong><br>
+                    <a href="mailto:contato@docemantra.com.br">contato@docemantra.com.br</a>
+                </div>
+            </div>
+            <div class="contato-item">
+                <div class="contato-icon">📍</div>
+                <div>
+                    <strong>Endereço</strong><br>
+                    <a href="#" target="_blank">Rua Exemplo, 123 - Bairro - Cidade/UF</a>
+                </div>
+            </div>
+            <div class="contato-item">
+                <div class="contato-icon">📷</div>
+                <div>
+                    <strong>Instagram</strong><br>
+                    <a href="https://www.instagram.com/ddocemantraspa" target="_blank">@ddocemantraspa</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-contato">
+            <form>
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" name="telefone" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensagem">Mensagem</label>
+                    <textarea id="mensagem" name="mensagem" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Enviar Mensagem</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Dôce Mantra</h3>
+                <p>Cuidando do seu bem-estar com dedicação e profissionalismo desde sempre.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <p><a href="#sobre" style="color: white; text-decoration: none;">Sobre</a></p>
+                <p><a href="#servicos" style="color: white; text-decoration: none;">Serviços</a></p>
+                <p><a href="#contato" style="color: white; text-decoration: none;">Contato</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/ddocemantraspa" target="_blank">📷</a>
+                    <a href="https://wa.me/5511999999999" target="_blank">💬</a>
+                    <a href="mailto:contato@docemantra.com.br">📧</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 Dôce Mantra Spa. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Obrigado pelo contato! Entraremos em contato em breve.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
