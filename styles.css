@@ -312,6 +312,17 @@ nav {
     scroll-margin-top: 120px;
 }
 
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url("assets/images/galeria/galeria-17.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.35;
+    z-index: 0;
+}
+
 .hero::before {
     content: '';
     position: absolute;
