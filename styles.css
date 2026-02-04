@@ -29,7 +29,7 @@
 }
 
 /* Remove destaque azul ao clicar em elementos interativos */
-a, button, .menu-toggle, .cta-button, .whatsapp-button, .logo, .footer-logo,
+a, button, .menu-toggle, .mobile-menu-close, .cta-button, .whatsapp-button, .logo, .footer-logo,
 .footer-logo picture, .galeria-item, .contato-item-clickable, .nav-links a,
 .mobile-nav-links a, .social-links a, .footer-section a {
     -webkit-tap-highlight-color: transparent !important;
@@ -37,7 +37,7 @@ a, button, .menu-toggle, .cta-button, .whatsapp-button, .logo, .footer-logo,
 }
 
 a:focus, a:active, button:focus, button:active, .menu-toggle:focus,
-.menu-toggle:active, .cta-button:focus, .cta-button:active,
+.menu-toggle:active, .mobile-menu-close:focus, .mobile-menu-close:active, .cta-button:focus, .cta-button:active,
 .whatsapp-button:focus, .whatsapp-button:active, .logo:focus, .logo:active,
 .footer-logo:focus, .footer-logo:active, .galeria-item:focus, .galeria-item:active,
 .contato-item-clickable:focus, .contato-item-clickable:active,
@@ -210,6 +210,36 @@ nav {
     right: 0;
 }
 
+.mobile-menu-close {
+    position: absolute;
+    top: calc((100px - 44px) / 2);
+    right: 5vw;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    font-size: 3rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: var(--transition-base);
+    -webkit-tap-highlight-color: transparent;
+    z-index: 1;
+}
+
+.mobile-menu-close:hover {
+    color: var(--secondary);
+    transform: scale(1.1);
+}
+
+.mobile-menu-close:focus,
+.mobile-menu-close:active {
+    outline: none;
+}
+
 .mobile-nav-links {
     list-style: none;
     padding: 0;
@@ -302,6 +332,7 @@ nav {
     z-index: 1;
     padding: 2rem;
     animation: fadeInUp 1s ease;
+    max-width: 90%;
 }
 
 .hero h1 {
@@ -310,6 +341,7 @@ nav {
     color: var(--primary);
     text-transform: uppercase;
     animation: fadeInUp 1s ease 0.2s backwards;
+    line-height: 1.15;
 }
 
 .hero p {
@@ -319,6 +351,7 @@ nav {
     font-weight: 300;
     letter-spacing: 1px;
     animation: fadeInUp 1s ease 0.4s backwards;
+    line-height: 1.5;
 }
 
 .cta-button {
@@ -869,17 +902,51 @@ footer {
         display: flex;
     }
 
+    .mobile-menu-close {
+        top: calc((120px - 44px) / 2);
+    }
+
     .hero {
-        height: 70vh;
+        height: 90vh;
+        min-height: 600px;
         margin-top: 120px;
+        scroll-margin-top: 120px;
+    }
+
+    .hero-content {
+        padding: 1.5rem 1.25rem;
+        max-width: 95%;
+    }
+
+    .hero::before {
+        width: 350px;
+        height: 350px;
+        top: -30%;
+        right: -30%;
+    }
+
+    .hero::after {
+        width: 280px;
+        height: 280px;
+        bottom: -20%;
+        left: -20%;
     }
 
     .hero h1 {
-        font-size: 3rem;
+        font-size: 2.75rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
     }
 
     .hero p {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        margin-bottom: 1.75rem;
+        line-height: 1.5;
+    }
+
+    .cta-button {
+        padding: 1rem 2.25rem;
+        font-size: 0.95rem;
     }
 
     .sobre {
@@ -952,22 +1019,53 @@ footer {
         padding-top: 100px;
     }
 
+    .mobile-menu-close {
+        top: calc((100px - 44px) / 2);
+        right: 4vw;
+    }
+
     .hero {
-        height: 60vh;
+        height: 90vh;
+        min-height: 560px;
         margin-top: 100px;
+        scroll-margin-top: 100px;
+    }
+
+    .hero-content {
+        padding: 1rem 1rem;
+        max-width: 96%;
+    }
+
+    .hero::before {
+        width: 250px;
+        height: 250px;
+        top: -25%;
+        right: -40%;
+    }
+
+    .hero::after {
+        width: 200px;
+        height: 200px;
+        bottom: -25%;
+        left: -30%;
     }
 
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-bottom: 0.6rem;
+        line-height: 1.2;
+        letter-spacing: 1px;
     }
 
     .hero p {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        margin-bottom: 1.25rem;
+        line-height: 1.45;
     }
 
     .cta-button {
-        padding: 1rem 2rem;
-        font-size: 0.9rem;
+        padding: 0.9rem 1.75rem;
+        font-size: 0.875rem;
     }
 
     .servicos h2,

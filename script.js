@@ -13,6 +13,7 @@
         form: null,
         menuToggle: null,
         mobileMenu: null,
+        mobileMenuClose: null,
         mobileMenuOverlay: null,
         mobileNavLinks: null
     };
@@ -212,6 +213,7 @@
     function initMobileMenu() {
         elements.menuToggle = document.querySelector('.menu-toggle');
         elements.mobileMenu = document.querySelector('.mobile-menu');
+        elements.mobileMenuClose = document.querySelector('.mobile-menu-close');
         elements.mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
 
         // Cria overlay se não existir
@@ -239,6 +241,11 @@
             // Fecha menu ao clicar no overlay
             if (elements.mobileMenuOverlay) {
                 elements.mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+            }
+
+            // Fecha menu ao clicar no X
+            if (elements.mobileMenuClose) {
+                elements.mobileMenuClose.addEventListener('click', closeMobileMenu);
             }
 
             // Fecha menu ao clicar em um link
