@@ -15,7 +15,12 @@
         mobileMenu: null,
         mobileMenuClose: null,
         mobileMenuOverlay: null,
-        mobileNavLinks: null
+        mobileNavLinks: null,
+        galeriaModal: null,
+        galeriaModalImg: null,
+        galeriaModalClose: null,
+        galeriaModalBackdrop: null,
+        galeriaItems: null
     };
 
     /**
@@ -322,6 +327,66 @@
     }
 
     /**
+     * Inicializa modal da galeria (clique na foto abre em tamanho completo)
+     */
+    /**
+     * Impede menu de contexto (botão direito) e arrastar nas imagens (dificulta download)
+     * Usa delegação para cobrir também imagens carregadas depois (ex.: modal da galeria)
+     */
+    function initProtectImages() {
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'IMG') e.preventDefault();
+        });
+        document.querySelectorAll('img').forEach(function(img) {
+            img.setAttribute('draggable', 'false');
+        });
+    }
+
+    function initGalleryModal() {
+        elements.galeriaModal = document.getElementById('galeria-modal');
+        elements.galeriaModalImg = document.querySelector('.galeria-modal-img');
+        elements.galeriaModalClose = document.querySelector('.galeria-modal-close');
+        elements.galeriaModalBackdrop = document.querySelector('.galeria-modal-backdrop');
+        elements.galeriaItems = document.querySelectorAll('.galeria-item');
+
+        if (!elements.galeriaModal || !elements.galeriaModalImg || !elements.galeriaItems.length) return;
+
+        function openGalleryModal(src, alt) {
+            elements.galeriaModalImg.src = src;
+            elements.galeriaModalImg.alt = alt || 'Foto da galeria';
+            elements.galeriaModal.classList.add('active');
+            elements.galeriaModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGalleryModal() {
+            elements.galeriaModal.classList.remove('active');
+            elements.galeriaModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        elements.galeriaItems.forEach(function(item) {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const img = this.querySelector('img');
+                if (img && img.src) openGalleryModal(img.src, img.alt);
+            });
+        });
+
+        if (elements.galeriaModalClose) {
+            elements.galeriaModalClose.addEventListener('click', closeGalleryModal);
+        }
+        if (elements.galeriaModalBackdrop) {
+            elements.galeriaModalBackdrop.addEventListener('click', closeGalleryModal);
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && elements.galeriaModal && elements.galeriaModal.classList.contains('active')) {
+                closeGalleryModal();
+            }
+        });
+    }
+
+    /**
      * Inicializa todas as funcionalidades quando o DOM estiver pronto
      */
     function init() {
@@ -337,6 +402,8 @@
             initFormHandling();
             initMobileMenu();
             initClickableCards();
+            initProtectImages();
+            initGalleryModal();
         } catch (error) {
             console.error('Erro ao inicializar scripts:', error);
         }
